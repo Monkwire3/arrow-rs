@@ -2564,8 +2564,6 @@
 <a href="#2562" id="2562">2562</a>
 <a href="#2563" id="2563">2563</a>
 <a href="#2564" id="2564">2564</a>
-<a href="#2565" id="2565">2565</a>
-<a href="#2566" id="2566">2566</a>
 </pre></div><pre class="rust"><code><span class="comment">// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
@@ -3669,11 +3667,10 @@
                 <span class="kw">match </span>as_date::&lt;T&gt;(v) {
                     <span class="prelude-val">Some</span>(date) =&gt; <span class="macro">write!</span>(f, <span class="string">"{date:?}"</span>),
                     <span class="prelude-val">None </span>=&gt; {
-                        <span class="kw">let </span>err = ArrowError::CastError(<span class="macro">format!</span>(
-                            <span class="string">"Failed to convert {} to temporal for {:?}"</span>,
-                            v, data_type
-                        ));
-                        <span class="macro">write!</span>(f, <span class="string">"{}"</span>, err)
+                        <span class="macro">write!</span>(
+                            f,
+                            <span class="string">"Cast error: Failed to convert {v} to temporal for {data_type:?}"
+                        </span>)
                     }
                 }
             }
@@ -3682,11 +3679,10 @@
                 <span class="kw">match </span>as_time::&lt;T&gt;(v) {
                     <span class="prelude-val">Some</span>(time) =&gt; <span class="macro">write!</span>(f, <span class="string">"{time:?}"</span>),
                     <span class="prelude-val">None </span>=&gt; {
-                        <span class="kw">let </span>err = ArrowError::CastError(<span class="macro">format!</span>(
-                            <span class="string">"Failed to convert {} to temporal for {:?}"</span>,
-                            v, data_type
-                        ));
-                        <span class="macro">write!</span>(f, <span class="string">"{}"</span>, err)
+                        <span class="macro">write!</span>(
+                            f,
+                            <span class="string">"Cast error: Failed to convert {v} to temporal for {data_type:?}"
+                        </span>)
                     }
                 }
             }
