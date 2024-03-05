@@ -896,6 +896,8 @@
 <a href="#894" id="894">894</a>
 <a href="#895" id="895">895</a>
 <a href="#896" id="896">896</a>
+<a href="#897" id="897">897</a>
+<a href="#898" id="898">898</a>
 </pre></div><pre class="rust"><code><span class="comment">// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
@@ -1405,6 +1407,7 @@
             | DataType::Duration(<span class="kw">_</span>)
             | DataType::Binary
             | DataType::LargeBinary
+            | DataType::BinaryView
             | DataType::Interval(<span class="kw">_</span>)
             | DataType::LargeList(<span class="kw">_</span>)
             | DataType::List(<span class="kw">_</span>)
@@ -1415,6 +1418,7 @@
             | DataType::FixedSizeBinary(<span class="kw">_</span>)
             | DataType::Utf8
             | DataType::LargeUtf8
+            | DataType::Utf8View
             | DataType::Decimal128(<span class="kw">_</span>, <span class="kw">_</span>)
             | DataType::Decimal256(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; {
                 <span class="kw">if </span>from.data_type == DataType::Null {

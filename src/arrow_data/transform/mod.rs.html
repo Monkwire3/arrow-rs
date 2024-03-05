@@ -694,6 +694,15 @@
 <a href="#692" id="692">692</a>
 <a href="#693" id="693">693</a>
 <a href="#694" id="694">694</a>
+<a href="#695" id="695">695</a>
+<a href="#696" id="696">696</a>
+<a href="#697" id="697">697</a>
+<a href="#698" id="698">698</a>
+<a href="#699" id="699">699</a>
+<a href="#700" id="700">700</a>
+<a href="#701" id="701">701</a>
+<a href="#702" id="702">702</a>
+<a href="#703" id="703">703</a>
 </pre></div><pre class="rust"><code><span class="comment">// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
@@ -920,6 +929,9 @@
         DataType::Decimal256(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; primitive::build_extend::&lt;i256&gt;(array),
         DataType::Utf8 | DataType::Binary =&gt; variable_size::build_extend::&lt;i32&gt;(array),
         DataType::LargeUtf8 | DataType::LargeBinary =&gt; variable_size::build_extend::&lt;i64&gt;(array),
+        DataType::BinaryView | DataType::Utf8View =&gt; {
+            <span class="macro">unimplemented!</span>(<span class="string">"BinaryView/Utf8View not implemented"</span>)
+        }
         DataType::Map(<span class="kw">_</span>, <span class="kw">_</span>) | DataType::List(<span class="kw">_</span>) =&gt; list::build_extend::&lt;i32&gt;(array),
         DataType::LargeList(<span class="kw">_</span>) =&gt; list::build_extend::&lt;i64&gt;(array),
         DataType::Dictionary(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="macro">unreachable!</span>(<span class="string">"should use build_extend_dictionary"</span>),
@@ -962,6 +974,9 @@
         DataType::Decimal256(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; primitive::extend_nulls::&lt;i256&gt;,
         DataType::Utf8 | DataType::Binary =&gt; variable_size::extend_nulls::&lt;i32&gt;,
         DataType::LargeUtf8 | DataType::LargeBinary =&gt; variable_size::extend_nulls::&lt;i64&gt;,
+        DataType::BinaryView | DataType::Utf8View =&gt; {
+            <span class="macro">unimplemented!</span>(<span class="string">"BinaryView/Utf8View not implemented"</span>)
+        }
         DataType::Map(<span class="kw">_</span>, <span class="kw">_</span>) | DataType::List(<span class="kw">_</span>) =&gt; list::extend_nulls::&lt;i32&gt;,
         DataType::LargeList(<span class="kw">_</span>) =&gt; list::extend_nulls::&lt;i64&gt;,
         DataType::Dictionary(child_data_type, <span class="kw">_</span>) =&gt; <span class="kw">match </span>child_data_type.as_ref() {
@@ -1115,6 +1130,9 @@
             | DataType::LargeBinary
             | DataType::Interval(<span class="kw">_</span>)
             | DataType::FixedSizeBinary(<span class="kw">_</span>) =&gt; <span class="macro">vec!</span>[],
+            DataType::BinaryView | DataType::Utf8View =&gt; {
+                <span class="macro">unimplemented!</span>(<span class="string">"BinaryView/Utf8View not implemented"</span>)
+            }
             DataType::Map(<span class="kw">_</span>, <span class="kw">_</span>) | DataType::List(<span class="kw">_</span>) | DataType::LargeList(<span class="kw">_</span>) =&gt; {
                 <span class="kw">let </span>children = arrays
                     .iter()

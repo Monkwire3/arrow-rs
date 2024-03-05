@@ -945,6 +945,26 @@
 <a href="#943" id="943">943</a>
 <a href="#944" id="944">944</a>
 <a href="#945" id="945">945</a>
+<a href="#946" id="946">946</a>
+<a href="#947" id="947">947</a>
+<a href="#948" id="948">948</a>
+<a href="#949" id="949">949</a>
+<a href="#950" id="950">950</a>
+<a href="#951" id="951">951</a>
+<a href="#952" id="952">952</a>
+<a href="#953" id="953">953</a>
+<a href="#954" id="954">954</a>
+<a href="#955" id="955">955</a>
+<a href="#956" id="956">956</a>
+<a href="#957" id="957">957</a>
+<a href="#958" id="958">958</a>
+<a href="#959" id="959">959</a>
+<a href="#960" id="960">960</a>
+<a href="#961" id="961">961</a>
+<a href="#962" id="962">962</a>
+<a href="#963" id="963">963</a>
+<a href="#964" id="964">964</a>
+<a href="#965" id="965">965</a>
 </pre></div><pre class="rust"><code><span class="comment">// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
@@ -1143,6 +1163,15 @@
     /// A single LargeBinary array can store up to [`i64::MAX`] bytes
     /// of binary data in total.
     </span>LargeBinary,
+    <span class="doccomment">/// (NOT YET FULLY SUPPORTED) Opaque binary data of variable length.
+    ///
+    /// Note this data type is not yet fully supported. Using it with arrow APIs may result in `panic`s.
+    ///
+    /// Logically the same as [`Self::Binary`], but the internal representation uses a view
+    /// struct that contains the string length and either the string's entire data
+    /// inline (for small strings) or an inlined prefix, an index of another buffer,
+    /// and an offset pointing to a slice in that buffer (for non-small strings).
+    </span>BinaryView,
     <span class="doccomment">/// A variable-length string in Unicode with UTF-8 encoding.
     ///
     /// A single Utf8 array can store up to [`i32::MAX`] bytes
@@ -1153,6 +1182,15 @@
     /// A single LargeUtf8 array can store up to [`i64::MAX`] bytes
     /// of string data in total.
     </span>LargeUtf8,
+    <span class="doccomment">/// (NOT YET FULLY SUPPORTED)  A variable-length string in Unicode with UTF-8 encoding
+    ///
+    /// Note this data type is not yet fully supported. Using it with arrow APIs may result in `panic`s.
+    ///
+    /// Logically the same as [`Self::Utf8`], but the internal representation uses a view
+    /// struct that contains the string length and either the string's entire data
+    /// inline (for small strings) or an inlined prefix, an index of another buffer,
+    /// and an offset pointing to a slice in that buffer (for non-small strings).
+    </span>Utf8View,
     <span class="doccomment">/// A list of some logical data type with variable length.
     ///
     /// A single List array can store up to [`i32::MAX`] elements in total.
@@ -1462,8 +1500,8 @@
             DataType::Interval(IntervalUnit::MonthDayNano) =&gt; <span class="prelude-val">Some</span>(<span class="number">16</span>),
             DataType::Decimal128(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="number">16</span>),
             DataType::Decimal256(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">Some</span>(<span class="number">32</span>),
-            DataType::Utf8 | DataType::LargeUtf8 =&gt; <span class="prelude-val">None</span>,
-            DataType::Binary | DataType::LargeBinary =&gt; <span class="prelude-val">None</span>,
+            DataType::Utf8 | DataType::LargeUtf8 | DataType::Utf8View =&gt; <span class="prelude-val">None</span>,
+            DataType::Binary | DataType::LargeBinary | DataType::BinaryView =&gt; <span class="prelude-val">None</span>,
             DataType::FixedSizeBinary(<span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
             DataType::List(<span class="kw">_</span>) | DataType::LargeList(<span class="kw">_</span>) | DataType::Map(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
             DataType::FixedSizeList(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="prelude-val">None</span>,
@@ -1502,8 +1540,10 @@
                 | DataType::Binary
                 | DataType::FixedSizeBinary(<span class="kw">_</span>)
                 | DataType::LargeBinary
+                | DataType::BinaryView
                 | DataType::Utf8
                 | DataType::LargeUtf8
+                | DataType::Utf8View
                 | DataType::Decimal128(<span class="kw">_</span>, <span class="kw">_</span>)
                 | DataType::Decimal256(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; <span class="number">0</span>,
                 DataType::Timestamp(<span class="kw">_</span>, s) =&gt; s.as_ref().map(|s| s.len()).unwrap_or_default(),

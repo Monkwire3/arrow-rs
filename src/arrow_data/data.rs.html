@@ -2122,6 +2122,13 @@
 <a href="#2120" id="2120">2120</a>
 <a href="#2121" id="2121">2121</a>
 <a href="#2122" id="2122">2122</a>
+<a href="#2123" id="2123">2123</a>
+<a href="#2124" id="2124">2124</a>
+<a href="#2125" id="2125">2125</a>
+<a href="#2126" id="2126">2126</a>
+<a href="#2127" id="2127">2127</a>
+<a href="#2128" id="2128">2128</a>
+<a href="#2129" id="2129">2129</a>
 </pre></div><pre class="rust"><code><span class="comment">// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
@@ -2233,6 +2240,10 @@
             </span>buffer.push(<span class="number">0i64</span>);
             [buffer, MutableBuffer::new(capacity * mem::size_of::&lt;u8&gt;())]
         }
+        DataType::BinaryView | DataType::Utf8View =&gt; [
+            MutableBuffer::new(capacity * mem::size_of::&lt;u128&gt;()),
+            empty_buffer,
+        ],
         DataType::List(<span class="kw">_</span>) | DataType::Map(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; {
             <span class="comment">// offset buffer always starts with a zero
             </span><span class="kw">let </span><span class="kw-2">mut </span>buffer = MutableBuffer::new((<span class="number">1 </span>+ capacity) * mem::size_of::&lt;i32&gt;());
@@ -3665,6 +3676,9 @@
         DataType::LargeBinary =&gt; DataTypeLayout::new_binary::&lt;i64&gt;(),
         DataType::Utf8 =&gt; DataTypeLayout::new_binary::&lt;i32&gt;(),
         DataType::LargeUtf8 =&gt; DataTypeLayout::new_binary::&lt;i64&gt;(),
+        DataType::BinaryView | DataType::Utf8View =&gt; {
+            <span class="macro">unimplemented!</span>(<span class="string">"BinaryView/Utf8View not implemented"</span>)
+        }
         DataType::FixedSizeList(<span class="kw">_</span>, <span class="kw">_</span>) =&gt; DataTypeLayout::new_empty(), <span class="comment">// all in child data
         </span>DataType::List(<span class="kw">_</span>) =&gt; DataTypeLayout::new_fixed_width::&lt;i32&gt;(),
         DataType::LargeList(<span class="kw">_</span>) =&gt; DataTypeLayout::new_fixed_width::&lt;i64&gt;(),

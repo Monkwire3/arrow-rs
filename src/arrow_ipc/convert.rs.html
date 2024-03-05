@@ -1064,6 +1064,7 @@
 <a href="#1062" id="1062">1062</a>
 <a href="#1063" id="1063">1063</a>
 <a href="#1064" id="1064">1064</a>
+<a href="#1065" id="1065">1065</a>
 </pre></div><pre class="rust"><code><span class="comment">// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
@@ -1609,6 +1610,7 @@
                 .as_union_value(),
             children: <span class="prelude-val">Some</span>(fbb.create_vector(<span class="kw-2">&amp;</span>empty_fields[..])),
         },
+        BinaryView | Utf8View =&gt; <span class="macro">unimplemented!</span>(<span class="string">"BinaryView/Utf8View not implemented"</span>),
         Utf8 =&gt; FBFieldType {
             type_type: <span class="kw">crate</span>::Type::Utf8,
             type_: <span class="kw">crate</span>::Utf8Builder::new(fbb).finish().as_union_value(),

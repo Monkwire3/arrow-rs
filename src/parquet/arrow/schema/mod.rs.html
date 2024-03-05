@@ -1947,6 +1947,7 @@
 <a href="#1945" id="1945">1945</a>
 <a href="#1946" id="1946">1946</a>
 <a href="#1947" id="1947">1947</a>
+<a href="#1948" id="1948">1948</a>
 </pre></div><pre class="rust"><code><span class="comment">// Licensed to the Apache Software Foundation (ASF) under one
 // or more contributor license agreements.  See the NOTICE file
 // distributed with this work for additional information
@@ -2430,6 +2431,7 @@
                 .with_length(<span class="kw-2">*</span>length)
                 .build()
         }
+        DataType::BinaryView | DataType::Utf8View =&gt; <span class="macro">unimplemented!</span>(<span class="string">"BinaryView/Utf8View not implemented"</span>),
         DataType::Decimal128(precision, scale)
         | DataType::Decimal256(precision, scale) =&gt; {
             <span class="comment">// Decimal precision determines the Parquet physical type to use.
